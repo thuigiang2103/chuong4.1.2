@@ -1,0 +1,123 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace chuong4._1._3
+{
+    public partial class Form1 : Form
+    {
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+        private void txtDonHang_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if ((e.KeyChar >= '0') || (e.KeyChar <= '9') || (e.KeyChar == '-') || (e.KeyChar == 13) || (e.KeyChar == 8))
+            e.Handled = false;
+            else e.Handled = true;
+
+        }
+
+        private void txtsoluong_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if(((e.KeyChar >= '0') && (e.KeyChar <= '9') )|| (e.KeyChar =='-')|| (e.KeyChar == 13) || (e.KeyChar == 8))
+            e.Handled = false;
+            else
+             e.Handled = true;
+        }
+
+        private void btnThucHien_Click(object sender, EventArgs e)
+        {
+            if (txtDonHang.Text == "")
+
+            {
+                MessageBox.Show("Ban chua nhap don hang", "Thong bao loi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtDonHang.Focus();
+                return;
+            }
+            if (txtMaHang.Text == "")
+            {
+                MessageBox.Show("Ban chua nhap ma hang", "Thong bao loi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtMaHang.Focus();
+                return;
+            }
+            if (txtsoluong.Text =="")
+            {
+                MessageBox.Show("Ban chua nhap so luong", "Thong bao loi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtsoluong.Focus();
+                return;
+            }
+            int a, b;
+            a = Convert.ToInt32(txtDonHang.Text);
+            b = Convert.ToInt32(txtsoluong.Text);
+
+
+            if(chkGiamGia.Checked == true)
+            {
+                if(rd5.Checked==true)
+                {
+                    txttong.Text = (a * b * 0.95).ToString(); 
+                }
+                if (rd10.Checked == true)
+                {
+                    txttong.Text = (a * b * 0.9).ToString();
+                }
+
+            }
+
+            else txttong.Text = (a * b ).ToString();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            chkGiamGia.Visible = true;
+            rd5.Visible = false;
+            rd10.Visible = false;
+        }
+
+        private void chkGiamGia_CheckedChanged(object sender, EventArgs e)
+        {
+            txttong.Text = "";
+            
+        }
+
+        private void chkGiamGia_Click(object sender, EventArgs e)
+        {
+            if (chkGiamGia.Checked== true)
+            {
+                rd5.Visible = true;
+                rd10.Visible = true;
+                
+
+            }
+            else
+            {
+                rd10.Visible = false;
+                rd5.Visible = false;
+            }
+        }
+
+        private void rd5_Click(object sender, EventArgs e)
+        {
+            txttong.Text = "";
+        }
+
+        private void rd10_Click(object sender, EventArgs e)
+        {
+            txttong.Text = "";
+        }
+
+        private void btnThoat_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Ban co muon thoat", "Thong bao", MessageBoxButtons.OKCancel, MessageBoxIcon.Question)== System.Windows.Forms.DialogResult.OK) ;
+            Application.Exit();
+        }
+    }
+}
